@@ -1,10 +1,11 @@
+import AdminLayout from "@/components/layout/AdminLayout";
 
-const HomePage = () => {
+export default function DashboardPage() {
   return (
-    <div>
-      
-    </div>
-  )
+    <AdminLayout>
+      <div className="bg-black w-full h-full">
+        
+      </div>
+    </AdminLayout>
+  );
 }
-
-export default HomePage
