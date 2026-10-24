@@ -18,7 +18,7 @@ export const useProductDelete = () => {
 
   return {
     ProductDelete: mutation.mutateAsync,
-    prodyuctDLoading: mutation.isPending,
+    productDLoading: mutation.isPending,
     productDError: mutation.error?.message ?? null,
   };
 };

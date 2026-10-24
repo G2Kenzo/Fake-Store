@@ -10,6 +10,18 @@ export const GetProducts = async (): Promise<Products[]> => {
   return ProductsData;
 };
 
+export const GetProduct = async (id: number): Promise<Products | null> => {
+  const response = await fetch(`${API_URL}/${id}`);
+  if (response.status === 404) {
+    return null;
+  }
+  if (!response.ok) {
+    throw new Error("Failed to fetch product");
+  }
+
+  return response.json();
+};
+
 export const PostProduct = async (Products: newProducts): Promise<Products> => {
   const response = await fetch(API_URL, {
     method: "POST",
@@ -19,7 +31,7 @@ export const PostProduct = async (Products: newProducts): Promise<Products> => {
     body: JSON.stringify(Products),
   });
   if (!response.ok) {
-    throw new Error("Failed to fetch products");
+    throw new Error("Failed to add product");
   }
 
   return response.json();

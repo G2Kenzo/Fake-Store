@@ -1,9 +1,8 @@
 "use client";
 import {EditUser} from "@/services/userServices";
-import {newUser} from "@/types/users";
+import {newUser, User} from "@/types/users";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {userKeys} from "./useUser";
-import {newProducts} from "@/types/products";
 
 export const useUpdateUser = () => {
   const queryclient = useQueryClient();
@@ -11,10 +10,12 @@ export const useUpdateUser = () => {
   const mutation = useMutation({
     mutationFn: ({id, user}: {id: number; user: newUser}) => EditUser(id, user),
 
-    onSuccess: () => {
-      queryclient.invalidateQueries({
-        queryKey: userKeys.lists(),
-      });
+    onSuccess: (updatedUser) => {
+      queryclient.setQueryData<User[]>(userKeys.lists(), (current) =>
+        current?.map((user) =>
+          user.id === updatedUser.id ? updatedUser : user,
+        ) ?? [],
+      );
     },
   });
 

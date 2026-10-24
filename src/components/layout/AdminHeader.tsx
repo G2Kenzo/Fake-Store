@@ -14,7 +14,7 @@ export default function AdminHeader({onOpenMobile}: AdminHeaderProps) {
       <div className="flex min-w-0 items-center gap-3">
         <button
           onClick={onOpenMobile}
-          aria-label="Menyuni ochish"
+          aria-label="Open menu"
           className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 lg:hidden"
         >
           <Menu size={22} />

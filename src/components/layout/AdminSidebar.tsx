@@ -40,7 +40,7 @@ export default function AdminSidebar({
     <>
       {mobileOpen && (
         <button
-          aria-label="Menyuni yopish"
+          aria-label="Close menu"
           onClick={onCloseMobile}
           className="fixed inset-0 z-40 bg-black/50 lg:hidden"
         />
@@ -73,7 +73,7 @@ export default function AdminSidebar({
 
           <button
             onClick={onCloseMobile}
-            aria-label="Menyuni yopish"
+            aria-label="Close menu"
             className="rounded-lg p-2 hover:bg-slate-800 lg:hidden"
           >
             <X size={19} />

@@ -1,6 +1,6 @@
 "use client";
 import {PostProduct} from "@/services/productServices";
-import {newProducts} from "@/types/products";
+import {newProducts, Products} from "@/types/products";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {productKeys} from "./useProduct";
 
@@ -10,10 +10,11 @@ export const useAddProduct = () => {
   const mutation = useMutation({
     mutationFn: (Product: newProducts) => PostProduct(Product),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: productKeys.lists(),
-      });
+    onSuccess: (createdProduct) => {
+      queryClient.setQueryData<Products[]>(productKeys.lists(), (current) => [
+        ...(current ?? []),
+        createdProduct,
+      ]);
     },
   });
 

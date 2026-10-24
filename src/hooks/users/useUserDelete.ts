@@ -2,6 +2,7 @@
 import {DeleteUser} from "@/services/userServices";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {userKeys} from "./useUser";
+import {User} from "@/types/users";
 
 export const useUserDelete = () => {
   const queryClient = useQueryClient();
@@ -9,10 +10,10 @@ export const useUserDelete = () => {
   const mutation = useMutation({
     mutationFn: (id: number) => DeleteUser(id),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: userKeys.lists(),
-      });
+    onSuccess: (_result, deletedId) => {
+      queryClient.setQueryData<User[]>(userKeys.lists(), (current) =>
+        current?.filter((user) => user.id !== deletedId) ?? [],
+      );
     },
   });
 
